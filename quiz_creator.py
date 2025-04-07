@@ -19,7 +19,7 @@ while True:
     choice_b = input('Input choice b: ')
     choice_c = input('Input choice c: ')
     choice_d = input('Input choice d: ')
-    answer = input('Input the correct answer from the choices: ')
+    answer = input('Input the correct answer from the choices(a,b,c,d): '); print()
 
     #append the inputs into a list
     quiz_list.append({
@@ -37,3 +37,4 @@ with open('quiz_creator.txt', 'a') as file:
         file.write(f'c) {quiz['choices'][2]}\n')
         file.write(f'd) {quiz['choices'][3]}\n')
         file.write(f'Answer: {quiz['answer']}\n')
+        file.write('\n')
