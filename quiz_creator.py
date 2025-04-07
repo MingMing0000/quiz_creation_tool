@@ -27,3 +27,13 @@ while True:
         'choices': [choice_a, choice_b, choice_c, choice_d],
         'answer': answer
     })
+
+#save the question, choices, and answer into a txt file
+with open('quiz_creator.txt', 'a') as file:
+    for quiz in quiz_list:
+        file.write(f'Question: {quiz['question']}\n')
+        file.write(f'a) {quiz['choices'][0]}\n')
+        file.write(f'b) {quiz['choices'][1]}\n')
+        file.write(f'c) {quiz['choices'][2]}\n')
+        file.write(f'd) {quiz['choices'][3]}\n')
+        file.write(f'Answer: {quiz['answer']}\n')
