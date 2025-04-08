@@ -27,3 +27,6 @@ for line in range(0, len(lines), 7): # there's 7 lines per quiz item including t
         'choices': [choice_a, choice_b, choice_c, choice_d],
         'answer': answer
     })
+
+#randomize the quiz items
+random.shuffle(questions)
