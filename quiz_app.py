@@ -51,4 +51,4 @@ for question in questions:
     print()
 
 print('\n----End of the quiz.----')
-print(f'Your score is {score}/{len(questions)}') #show the score
+print(f'\nYour score is {score}/{len(questions)}') #show the score
