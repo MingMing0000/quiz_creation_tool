@@ -30,3 +30,11 @@ for line in range(0, len(lines), 7): # there's 7 lines per quiz item including t
 
 #randomize the quiz items
 random.shuffle(questions)
+
+#showing the quiz
+print('\nQuiz: Read the question and choose the correct answer from the choices.\n')
+#using for loop to show the quiz one at a time
+for question in questions:
+    print(f'Question: {question['question']}')
+    for index, letter in enumerate(['A', 'B', 'C', 'D']):
+        print(f'{letter}) {question['choices'][index]}')
