@@ -31,6 +31,8 @@ for line in range(0, len(lines), 7): # there's 7 lines per quiz item including t
 #randomize the quiz items
 random.shuffle(questions)
 
+score = 0 #will be used to count the score
+
 #showing the quiz
 print('\nQuiz: Read the question and choose the correct answer from the choices.\n')
 #using for loop to show the quiz one at a time
@@ -43,7 +45,9 @@ for question in questions:
 user_answer = input('What is your answer? (A/B/C/D): ').strip().upper()
 if user_answer == question['answer'].upper():
     print('\nYour answer is correct! ✔️')
+    score += 1
 else:
     print(f'\nYour answer is wrong! ❌ The correct answer is {question['answer'].upper()}')
 
 print('\nEnd of the quiz.')
+print(f'Your score is {score}/{len(questions)}') #show the score
