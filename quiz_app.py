@@ -38,3 +38,12 @@ for question in questions:
     print(f'Question: {question['question']}')
     for index, letter in enumerate(['A', 'B', 'C', 'D']):
         print(f'{letter}) {question['choices'][index]}')
+
+#get and check the user's answer
+user_answer = input('What is your answer? (A/B/C/D): ').strip().upper()
+if user_answer == question['answer'].upper():
+    print('\nYour answer is correct! ✔️')
+else:
+    print(f'\nYour answer is wrong! ❌ The correct answer is {question['answer'].upper()}')
+
+print('\nEnd of the quiz.')
