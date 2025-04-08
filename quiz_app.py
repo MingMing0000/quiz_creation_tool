@@ -48,6 +48,7 @@ for question in questions:
         score += 1
     else:
         print(f'\nYour answer is wrong! ❌ The correct answer is {question['answer'].upper()}')
+    print()
 
 print('\n----End of the quiz.----')
 print(f'Your score is {score}/{len(questions)}') #show the score
