@@ -39,4 +39,4 @@ with open('quiz_creator.txt', 'a') as file:
         file.write(f"Answer: {quiz['answer']}\n")
         file.write('\n')
 
-print('Your quiz has been saved to quiz_creator.txt')
+print('\nYour quiz has been saved to quiz_creator.txt')
