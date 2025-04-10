@@ -65,6 +65,15 @@ def display_quiz(index):
     choice_c.config(text=questions[index]['choices'][2])
     choice_d.config(text=questions[index]['choices'][3])
 
+def check_answer(choice_index):
+    global question_count, score
+    correct_answer = questions[question_count]["answer"]
+    if questions[question_count]['choices'][choice_index][0] == correct_answer:
+        feedback_label.config(text="✔️ Correct!", fg="green")
+        score += 1
+    else:
+        feedback_label.config(text=f"❌ Wrong! The correct answer is: {correct_answer}", fg="red")
+
 #display_quiz(question_count)
 try:
     from ctypes import windll
