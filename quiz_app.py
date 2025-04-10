@@ -7,6 +7,7 @@
 
 import random
 import tkinter as tk
+import time
 #create a list to store the quiz items
 questions = []
 question_count = 0
@@ -17,7 +18,7 @@ with open('quiz_creator.txt', 'r') as file:
 
 #put the items to the list
 for line in range(0, len(lines), 7): # there's 7 lines per quiz item including the empty line
-    question = lines[line].strip().replace('Question: ', '').capitalize()
+    question = lines[line].strip().replace('Question: ', '')
     choice_a = lines[line + 1].strip()
     choice_b = lines[line + 2].strip()
     choice_c = lines[line + 3].strip()
@@ -58,6 +59,10 @@ choice_d.pack(pady=10)
 feedback_label = tk.Label(root, text="", font=("Times New Roman", 20), bg="turquoise")
 feedback_label.pack(pady=20)
 
+# Add a label for countdown timer
+timer = tk.Label(root, text="", font=("Times New Roman", 20), bg="turquoise")
+timer.pack(pady=20)
+
 def display_quiz(index):
     the_question.config(text=questions[index]['question'])
     choice_a.config(text=questions[index]['choices'][0])
@@ -73,8 +78,27 @@ def check_answer(choice_index):
         score += 1
     else:
         feedback_label.config(text=f"❌ Wrong! The correct answer is: {correct_answer}", fg="red")
+    countdown(3)  # 3-second delay before next question
 
-#display_quiz(question_count)
+def countdown(seconds):
+    if seconds > 0:
+        timer.config(text=f"Next question in {seconds}...", fg="blue")
+        root.after(1000, countdown, seconds - 1)  
+    else:
+        move_to_next_question()
+
+def move_to_next_question():
+    global question_count
+    question_count += 1
+    if question_count < len(questions):
+        feedback_label.config(text="")
+        timer.config(text="")  
+        display_quiz(question_count)
+    else:
+        feedback_label.config(text=f"Quiz finished! Your score: {score}/{len(questions)}", fg="purple")
+
+display_quiz(question_count)
+
 try:
     from ctypes import windll
     windll.shcore.SetProcessDpiAwareness(1)
