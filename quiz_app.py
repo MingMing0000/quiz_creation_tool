@@ -6,6 +6,7 @@
 #check the answer if it is correct
 
 import random
+import tkinter as tk
 #create a list to store the quiz items
 questions = []
 
@@ -31,6 +32,19 @@ for line in range(0, len(lines), 7): # there's 7 lines per quiz item including t
 #randomize the quiz items
 random.shuffle(questions)
 
+#making the GUI of the quiz app
+root = tk.Tk()
+root.title("Quiz App")
+root.configure(bg="turquoise")
+root.geometry("1280x720")
+
+
+try:
+    from ctypes import windll
+    windll.shcore.SetProcessDpiAwareness(1)
+finally:
+    root.mainloop()
+'''
 score = 0 #will be used to count the score
 
 #showing the quiz
@@ -51,4 +65,4 @@ for question in questions:
     print()
 
 print('\n----End of the quiz.----')
-print(f'\nYour score is {score}/{len(questions)}') #show the score
+print(f'\nYour score is {score}/{len(questions)}') #show the score'''
