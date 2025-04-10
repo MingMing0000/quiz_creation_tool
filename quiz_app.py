@@ -95,7 +95,7 @@ def move_to_next_question():
         timer.config(text="")  
         display_quiz(question_count)
     else:
-        feedback_label.config(text=f"Quiz finished! Your score: {score}/{len(questions)}", fg="purple")
+        feedback_label.config(text=f"Quiz finished! Your score is: {score}/{len(questions)}", fg="purple")
 
 display_quiz(question_count)
 
@@ -104,25 +104,3 @@ try:
     windll.shcore.SetProcessDpiAwareness(1)
 finally:
     root.mainloop()
-'''
-score = 0 #will be used to count the score
-
-#showing the quiz
-print('\nQuiz: Read the question and choose the correct answer from the choices.\n')
-#using for loop to show the quiz one at a time
-for question in questions:
-    print(f'Question: {question['question']}')
-    for index, letter in enumerate(['A', 'B', 'C', 'D']):
-        print(f'{letter}) {question['choices'][index]}')
-
-    #get and check the user's answer
-    user_answer = input('What is your answer? (A/B/C/D): ').strip().upper()
-    if user_answer == question['answer'].upper():
-        print('\nYour answer is correct! ✔️')
-        score += 1
-    else:
-        print(f'\nYour answer is wrong! ❌ The correct answer is {question['answer'].upper()}')
-    print()
-
-print('\n----End of the quiz.----')
-print(f'\nYour score is {score}/{len(questions)}') #show the score'''
