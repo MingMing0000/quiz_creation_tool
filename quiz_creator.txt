@@ -1,0 +1,35 @@
+Question: What is the capital city of the philippines?
+a) davao
+b) quezon city
+c) manila
+d) cebu
+Answer: c
+
+Question: who is known as the national hero of the philippines?
+a) jose rizal
+b) emilio aguinaldo
+c) andres bonifacio
+d) manuel l. quezon
+Answer: a
+
+Question: what is the oldest city in the philippines?
+a) cebu city
+b) vigan
+c) manila
+d) davao city
+Answer: a
+
+Question: What is the national flower of the philippines?
+a) gumamela
+b) waling-waling
+c) ilang-ilang
+d) sampaguita
+Answer: d
+
+Question: which volcano erupted in 1991?
+a) mayon volcano
+b) mount pinatubo
+c) mount kanlaon
+d) taal volcano
+Answer: b
+
