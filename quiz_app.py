@@ -61,7 +61,11 @@ feedback_label.pack(pady=20)
 
 # Add a label for countdown timer
 timer = tk.Label(root, text="", font=("Times New Roman", 20), bg="turquoise")
-timer.pack(pady=20)
+timer.pack(pady=15)
+
+# Add a label for score
+score_label = tk.Label(root, text="", font=("Times New Roman", 20), bg="turquoise")
+score_label.pack(pady=15)
 
 def display_quiz(index):
     the_question.config(text=questions[index]['question'])
@@ -78,7 +82,12 @@ def check_answer(choice_index):
         score += 1
     else:
         feedback_label.config(text=f"❌ Wrong! The correct answer is: {correct_answer}", fg="red")
-    countdown(3)  # 3-second delay before next question
+    question_count += 1
+    
+    if question_count < len(questions):
+        countdown(3)  # 3-second delay before next question
+    else:
+        score_label.config(text=f"Quiz finished! Your score is: {score}/{len(questions)}", fg="purple")
 
 def countdown(seconds):
     if seconds > 0:
@@ -88,14 +97,10 @@ def countdown(seconds):
         move_to_next_question()
 
 def move_to_next_question():
-    global question_count
-    question_count += 1
     if question_count < len(questions):
         feedback_label.config(text="")
         timer.config(text="")  
         display_quiz(question_count)
-    else:
-        feedback_label.config(text=f"Quiz finished! Your score is: {score}/{len(questions)}", fg="purple")
 
 display_quiz(question_count)
 
