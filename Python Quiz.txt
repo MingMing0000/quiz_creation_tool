@@ -1,0 +1,21 @@
+Question: What function is used to capitalize the first letter of a string?
+a) upper()
+b) capitalize()
+c) title
+d) lower()
+Answer: b
+
+Question: What function replaces a part of a string with another value?
+a) switch()
+b) replace()
+c) edit()
+d) change()
+Answer: b
+
+Question: What function removes leading and trailing spaces from a string?
+a) strip()
+b) split()
+c) replace()
+d) trim()
+Answer: a
+
