@@ -7,32 +7,71 @@
 
 import random
 import tkinter as tk
-import time
+from tkinter import filedialog
+
 #create a list to store the quiz items
 questions = []
 question_count = 0
 score = 0 
-#read the quiz from the text file
-with open('quiz_creator.txt', 'r') as file:
-    lines = file.readlines()
 
-#put the items to the list
-for line in range(0, len(lines), 7): # there's 7 lines per quiz item including the empty line
-    question = lines[line].strip().replace('Question: ', '')
-    choice_a = lines[line + 1].strip()
-    choice_b = lines[line + 2].strip()
-    choice_c = lines[line + 3].strip()
-    choice_d = lines[line + 4].strip()
-    answer = lines[line + 5].strip().replace('Answer: ', '')
+#prevent buttons from showing before selecting a file
+def hide_buttons():
+    the_question.pack_forget()
+    choice_a.pack_forget()
+    choice_b.pack_forget()
+    choice_c.pack_forget()
+    choice_d.pack_forget()
+    feedback_label.pack_forget()
+    timer.pack_forget()
+    score_label.pack_forget()
 
-    questions.append({
-        'question': question,
-        'choices': [choice_a, choice_b, choice_c, choice_d],
-        'answer': answer
-    })
+# Function to show quiz elements
+def show_buttons():
+    the_question.pack(pady=45)
+    choice_a.pack(pady=10)
+    choice_b.pack(pady=10)
+    choice_c.pack(pady=10)
+    choice_d.pack(pady=10)
+    feedback_label.pack(pady=20)
+    timer.pack(pady=10)
+    score_label.pack(pady=15)
 
-#randomize the quiz items
-random.shuffle(questions)
+# Open file dialog to select a .txt file
+def open_quiz_file():
+    file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
+    if file_path:
+        with open(file_path, 'r', encoding="utf-8") as file:
+            lines = file.readlines()
+
+        # Clear the questions list and insert the new file's content
+        questions.clear()
+        for line in range(0, len(lines), 7):  # Assuming 7 lines per quiz item
+            question = lines[line].strip().replace('Question: ', '')
+            choice_a_text = lines[line + 1].strip()
+            choice_b_text = lines[line + 2].strip()
+            choice_c_text = lines[line + 3].strip()
+            choice_d_text = lines[line + 4].strip()
+            answer = lines[line + 5].strip().replace('Answer: ', '')
+
+            questions.append({
+                'question': question,
+                'choices': [choice_a_text, choice_b_text, choice_c_text, choice_d_text],
+                'answer': answer
+            })
+
+        # Randomize the quiz items
+        random.shuffle(questions)
+
+        # Show quiz elements and start the quiz
+        open_button.pack_forget()
+        welcome_text.pack_forget()
+        wlecome_subheading.pack_forget()
+        show_buttons()
+        global question_count
+        question_count = 0  # Reset question count
+        display_quiz(question_count)
+    else:
+        feedback_label.config(text="No file selected.", fg="red")
 
 #making the GUI of the quiz app
 root = tk.Tk()
@@ -40,32 +79,35 @@ root.title("Quiz App")
 root.configure(bg="turquoise")
 root.geometry("1280x720")
 
-the_question = tk.Label(root, text="", font=("Times New Roman", 30), bg="turquoise", wraplength=800)
-the_question.pack(pady=50)
+#Add welcome text
+welcome_text = tk.Label(root, text="Welcome to the Quiz App!", font=("Times New Roman", 40), bg="turquoise")
+welcome_text.pack(pady=50)
+wlecome_subheading = tk.Label(root, text="--Open a quiz file to start--", font=("Times New Roman", 25), fg="gray", bg="turquoise")
+wlecome_subheading.pack(pady=20)
+
+#Add a button to open the quiz file
+open_button = tk.Button(root, text="Open Quiz File", font=("Times New Roman", 25), bg="lightblue", command=open_quiz_file)
+open_button.pack(pady=50)
+
 #making the buttons
+the_question = tk.Label(root, text="", font=("Times New Roman", 30), bg="turquoise", wraplength=800)
+
 choice_a = tk.Button(root, text="", font=("Times New Roman", 25), bg="lightblue", width=30, command=lambda: check_answer(0))
-choice_a.pack(pady=10)
 
 choice_b = tk.Button(root, text="", font=("Times New Roman", 25), bg="lightblue", width=30, command=lambda: check_answer(1))
-choice_b.pack(pady=10)
 
 choice_c = tk.Button(root, text="", font=("Times New Roman", 25), bg="lightblue", width=30, command=lambda: check_answer(2))
-choice_c.pack(pady=10)
 
 choice_d = tk.Button(root, text="", font=("Times New Roman", 25), bg="lightblue", width=30, command=lambda: check_answer(3))
-choice_d.pack(pady=10)
 
 # Add a label for feedback when checking answer
 feedback_label = tk.Label(root, text="", font=("Times New Roman", 20), bg="turquoise")
-feedback_label.pack(pady=20)
 
 # Add a label for countdown timer
 timer = tk.Label(root, text="", font=("Times New Roman", 20), bg="turquoise")
-timer.pack(pady=15)
 
 # Add a label for score
 score_label = tk.Label(root, text="", font=("Times New Roman", 20), bg="turquoise")
-score_label.pack(pady=15)
 
 def display_quiz(index):
     the_question.config(text=questions[index]['question'])
@@ -91,7 +133,7 @@ def check_answer(choice_index):
 
 def countdown(seconds):
     if seconds > 0:
-        timer.config(text=f"Next question in {seconds}...", fg="blue")
+        timer.config(text=f"Next question in {seconds}", fg="blue")
         root.after(1000, countdown, seconds - 1)  
     else:
         move_to_next_question()
@@ -102,7 +144,8 @@ def move_to_next_question():
         timer.config(text="")  
         display_quiz(question_count)
 
-display_quiz(question_count)
+#hide buttons at the start
+hide_buttons()
 
 try:
     from ctypes import windll
